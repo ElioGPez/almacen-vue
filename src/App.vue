@@ -33,7 +33,7 @@ Vue.use(VuePaginate)
 import VueGoogleCharts from 'vue-google-charts'
 Vue.use(VueGoogleCharts)
 import axios from "axios";
-axios.defaults.baseURL = 'http://192.168.1.11:8080/';
+axios.defaults.baseURL = 'http://192.168.1.11:8000/';
 
 export default {
   data() {
