@@ -41,7 +41,7 @@ export default new Vuex.Store({
         commit('auth_request')
         console.log(user)
         //Se hace uso de Axios para mandar la solicitud POST al servidor con los datos del usuarios obtenidos por parametro
-        axios({ url: '192.168.1.55:8000/api/authenticate', data: user, method: 'POST' })
+        axios({ url: '/api/authenticate', data: user, method: 'POST' })
           .then(resp => {
                 //Del servidor obtenemos el Token, el cual decodificamos para obtener los valores del mismo
                 //Mostramos el Token por consola
