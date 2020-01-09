@@ -165,7 +165,7 @@ export default {
           )
           .then(response => {
             console.log(response);
-
+            this.limpiar();
           });
         },
     handleSubmit(e) {
@@ -184,6 +184,11 @@ export default {
           this.listado_categorias = response.data;
           console.log(this.listado_categorias);
 				});
+    },
+    limpiar(){
+      this.mensaje = 'Producto creado!!';
+     // $('#mensajeModal').modal('show');
+      this.$router.push('/producto')
     },
     },
     mounted() {

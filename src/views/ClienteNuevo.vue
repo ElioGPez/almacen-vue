@@ -185,7 +185,7 @@ export default {
           )
           .then(response => {
             console.log(response);
-
+            this.limpiar();
           });
     },
     rellenarLocalidades(event){
@@ -220,6 +220,13 @@ export default {
           this.listado_provincias = response.data;
           console.log(this.listado_provincias);
 				});
+    },
+    limpiar(){
+      this.descripcion = '';
+      this.categoria = '';
+      this.mensaje = 'Categoria creada!!';
+     // $('#mensajeModal').modal('show');
+      this.$router.push('/cliente')
     },
     },
     mounted() {

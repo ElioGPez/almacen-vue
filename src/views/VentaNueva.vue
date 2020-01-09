@@ -37,7 +37,27 @@
                 <input v-model="cliente.nombre" type="text" class="form-control" readonly />
               </div>
             </div>
-
+          <div class="col-6 row">
+                <div style="margin-left:40px;" class="col-3 custom-control custom-checkbox center">
+                  <input
+                    v-model="r_fecha"
+                    @change="vencimientoActivo($event)"
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="check-vencimiento"
+                  />
+                  <label class="custom-control-label" for="check-vencimiento">FECHA</label>
+                </div>
+            <div class="col-4">
+                <input v-model="fecha" type="date" class="form-control" :disabled="r_fecha == 0" />
+            </div>
+            <div class="col-2 center">
+                <p for="codigo">HORA</p>
+            </div>
+            <div class="col-2">
+                <input v-model="hora" type="number" class="form-control" :disabled="r_fecha == 0" placeholder="00" />
+            </div>
+          </div>
 
           </div>
 
@@ -66,7 +86,7 @@
                 <input v-model="cantidad" type="number" class="form-control" placeholder="Cantidad" />
               </div>
               <div class="col-2">
-                <button @click="agregarLineaDeVenta()" type="button" class="btn">AGREGAR</button>
+                <button @click="obtenerProducto()" type="button" class="btn">AGREGAR</button>
               </div>
             </div>
           </div>
@@ -342,6 +362,8 @@ export default {
       productos: [],
       cliente_id : '',
       cliente_r : 0,
+      r_fecha : '',
+      fecha: '',
       //Modal
       listado_productos : [],
       filtro : '',
@@ -353,7 +375,20 @@ export default {
   },
   methods: {
     actualizar() {},
+    establecerFecha(){
+        console.log('pasa')
+        var n = new Date();
+        //Año
+        var y = n.getFullYear();
+        //Mes
+        var m = n.getMonth() + 1;
+        //Día
+        var d = n.getDate();
+        console.log(y + "/" + m + "/" + d)        
+        this.fecha = y + "/" + m + "/" + d;
+    },
     getResults() {
+      this.establecerFecha();
 			axios.get('api/producto')
 				.then(response => {
           this.listado_productos = response.data;
@@ -381,6 +416,7 @@ export default {
        var item = this.listado_productos.find(
           x => x.codigo == this.codigo
         );
+        console.log(item.producto);
         //Agregar mensaje de codigo incorrecto
         if(item != null){
           this.producto = item;
@@ -418,11 +454,18 @@ export default {
           })
           .then(response => {
             console.log(response.data);
-            /*this.limpiar();
-            this.limpiarRegistro();*/
+            this.limpiar();
+            //this.limpiarRegistro();*/
             this.mensaje = "Venta REGISTRADA!!";
           });
       }
+    },
+    limpiar(){
+      this.cliente_id = '';
+      this.linea_venta = [];
+      this.empleado_id = '';
+      this.total = 0;
+      this.cliente = ''; 
     },
     clienteSeleccionado(event){
       vent.target.value

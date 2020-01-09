@@ -104,7 +104,8 @@ export default {
         }
     },
     methods: {
-      		getResults(page = 1) {
+      getResults(page = 1) {
+        //console.log(localStorage.getItem('token'))
 			axios.get('api/categoria?page=' + page)
 				.then(response => {
 

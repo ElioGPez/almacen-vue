@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Navar></Navar>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> | 
@@ -15,6 +16,9 @@
       <router-link to="/cliente_nuevo">Nuevo Cliente</router-link> |
       <router-link to="/cuenta">Cuenta</router-link> |
       <router-link to="/estadisticas">Estadisticas</router-link> |
+      <router-link to="/informe">Informe</router-link> |
+      <router-link to="/proveedor">Proveedor</router-link> |
+      <router-link to="/proveedor_nuevo">Nuevo Proveedor</router-link> |
 
       <router-link to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout - {{valor}}</a></span>
 
@@ -33,14 +37,19 @@ Vue.use(VuePaginate)
 import VueGoogleCharts from 'vue-google-charts'
 Vue.use(VueGoogleCharts)
 import axios from "axios";
-axios.defaults.baseURL = 'http://192.168.1.55:8000/';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
+import Navar from "@/components/Navar.vue";
 
 export default {
   data() {
     return {
       user : this.$store.token,
     }
-  },    
+  },   
+  components: {
+    Navar
+  }, 
   computed : {
       //Retirna True o False dependiendo de si existe o no el Token en el state->token
       isLoggedIn : function(){ return this.$store.getters.isLoggedIn},
@@ -59,7 +68,7 @@ export default {
     },
       created: function () {
         //Sirve para interceptar todos los mensajes de error, para impedir el acceso en caso de que no sea autorizado
-    this.$http.interceptors.response.use(undefined, function (err) {
+    axios.interceptors.response.use(undefined, function (err) {
       return new Promise(function (resolve, reject) {
         if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
           this.$store.dispatch(logout)

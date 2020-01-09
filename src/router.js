@@ -14,6 +14,9 @@ import CategoriaNueva from './views/CategoriaNueva.vue'
 import ClienteNuevo from './views/ClienteNuevo.vue'
 import Cuenta from './views/Cuenta.vue'
 import Estadistica from './views/Estadisticas.vue'
+import Proveedor from './views/Proveedor.vue'
+import ProveedorNuevo from './views/ProveedorNuevo.vue'
+import Informe from './views/Informe.vue'
 
 import store from './store.js'
 
@@ -72,6 +75,16 @@ let router = new Router({
       component: Producto
     },
     {
+      path: '/proveedor',
+      name: 'proveedor',
+      component: Proveedor
+    },
+    {
+      path: '/proveedor_nuevo',
+      name: 'proveedor_nuevo',
+      component: ProveedorNuevo
+    },
+    {
       path: '/producto_nuevo',
       name: 'producto_nuevo',
       component: ProductoNuevo
@@ -86,11 +99,11 @@ let router = new Router({
       name: 'venta_nueva',
       component: VentaNueva
     },
-    /*{
-      path: '/cuenta',
-      name: 'cuenta',
-      component: Cuenta
-    },*/
+    {
+      path: '/informe',
+      name: 'informe',
+      component: Informe
+    },
     {
       path : '/cuenta/:id',
       name : 'cuenta',

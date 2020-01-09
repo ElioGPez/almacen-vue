@@ -212,6 +212,7 @@ export default {
       fecha_desde: "",
       fecha_hasta: "",
       id_usuario: "",
+      id_venta: '',
       lineas: [{ id: "0", producto: { nombre: "" } }],
       mensaje : '',
       carga:0
@@ -230,7 +231,7 @@ export default {
       this.id_usuario = this.$store.state.usuario;
     },
     detalle(item) {
-      console.log(item);
+      this.id_venta = item.id;
       this.lineas = item.linea_venta;
 
       $("#modal_pendiente").modal("show");
