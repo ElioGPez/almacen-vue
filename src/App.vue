@@ -1,28 +1,6 @@
 <template>
   <div id="app">
     <Navar></Navar>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> | 
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/venta">Venta</router-link> |
-      <router-link to="/venta_nueva">Nueva Venta</router-link> |
-      <router-link to="/compra">Compra</router-link> |
-      <router-link to="/compra_nueva">Nueva Compra</router-link> |
-      <router-link to="/categoria">Categoria</router-link> |
-      <router-link to="/producto">Producto</router-link> |
-      <router-link to="/producto_nuevo">Nuevo Producto</router-link> |
-      <router-link to="/cliente">Cliente</router-link> |
-      <router-link to="/cliente_nuevo">Nuevo Cliente</router-link> |
-      <router-link to="/cuenta">Cuenta</router-link> |
-      <router-link to="/estadisticas">Estadisticas</router-link> |
-      <router-link to="/informe">Informe</router-link> |
-      <router-link to="/proveedor">Proveedor</router-link> |
-      <router-link to="/proveedor_nuevo">Nuevo Proveedor</router-link> |
-
-      <router-link to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout - {{valor}}</a></span>
-
-    </div>
     <router-view/>
 
   </div>
@@ -44,27 +22,14 @@ import Navar from "@/components/Navar.vue";
 export default {
   data() {
     return {
-      user : this.$store.token,
+     // user : this.$store.token,
     }
   },   
   components: {
     Navar
   }, 
-  computed : {
-      //Retirna True o False dependiendo de si existe o no el Token en el state->token
-      isLoggedIn : function(){ return this.$store.getters.isLoggedIn},
-      valor(){
-        return  JSON.parse(localStorage.getItem('usuario')).name;
-      }
-    },
     
     methods: {
-      logout: function () {
-        this.$store.dispatch('logout')
-        .then(() => {
-          this.$router.push('/login')
-        })
-      }
     },
       created: function () {
         //Sirve para interceptar todos los mensajes de error, para impedir el acceso en caso de que no sea autorizado
@@ -80,6 +45,8 @@ export default {
 }
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
