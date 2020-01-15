@@ -15,7 +15,7 @@ Vue.use(VuePaginate)
 import VueGoogleCharts from 'vue-google-charts'
 Vue.use(VueGoogleCharts)
 import axios from "axios";
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios.defaults.baseURL = 'almacen.com/';
 axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
 import Navar from "@/components/Navar.vue";
 import ApexCharts from 'apexcharts'
