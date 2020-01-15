@@ -422,7 +422,7 @@ export default {
       this.establecerFecha();
 			axios.get('api/producto')
 				.then(response => {
-          this.listado_productos = response.data;
+          this.listado_productos = response.data[0].productos;
           console.log(this.listado_productos);
         });
       axios.get('api/cliente')
