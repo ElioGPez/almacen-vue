@@ -28,7 +28,7 @@
                   <option v-for="item of listado_categorias" :key="item.id" :value="item.id">{{item.categoria}}</option>
                 </select>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Nombre</label>
@@ -41,7 +41,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr> 
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Descripcion</label>
@@ -54,7 +54,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Stock Minimo</label>
@@ -67,7 +67,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Precio Venta</label>
@@ -80,7 +80,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Codigo</label>
@@ -93,7 +93,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Fecha de Vencimiento</label>

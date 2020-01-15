@@ -15,10 +15,11 @@ Vue.use(VuePaginate)
 import VueGoogleCharts from 'vue-google-charts'
 Vue.use(VueGoogleCharts)
 import axios from "axios";
-axios.defaults.baseURL = 'http://almacen.com/';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
 import Navar from "@/components/Navar.vue";
 import ApexCharts from 'apexcharts'
+
 
 export default {
   data() {
@@ -86,6 +87,18 @@ export default {
   animation: load1 1s infinite ease-in-out;
   width: 1em;
   height: 4em;
+}
+.table thead {
+  font-size: 12pt;
+}
+.table tbody tr td{
+  font-size: 11pt;
+}
+.btn-icon {
+  font-size: 8pt;
+}
+.table td {
+  height: 5px;
 }
 .loader:before,
 .loader:after {

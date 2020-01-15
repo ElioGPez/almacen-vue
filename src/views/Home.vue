@@ -108,5 +108,6 @@ export default {
         background-color: #5a0064;
         padding-top: 10px;
         padding-bottom: 10px;
+        font-size: 18pt;
     }
 </style>

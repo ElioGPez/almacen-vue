@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import graficos from "@/views/ChartBar.vue";
 import VueApexCharts from "vue-apexcharts";
 import axios from "axios";
 
@@ -207,7 +206,7 @@ export default {
     this.onChartReady();
   },
   components: {
-    graficos,
+   // graficos,
     apexchart: VueApexCharts
   }
 };

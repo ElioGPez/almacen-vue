@@ -28,7 +28,9 @@
         </router-link>
       </div>
       <form class="card-body">
-        <div class="form-group">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
           <!-- Tabla -->
           <div class="form-group">
             <fieldset>
@@ -59,7 +61,7 @@
                             name : 'venta',
                             params : {id : cat.id}
                           }">
-                            <button class="btn btn-warning">
+                            <button class="btn-icon btn btn-warning">
                               <i class="far fa-edit"></i>
                             </button>        
                           </router-link>
@@ -100,7 +102,8 @@ export default {
         return {
             listado_categorias:[],
             filtro : '',
-            paginate: ['categoria']
+            paginate: ['categoria'],
+            carga : 0
         }
     },
     methods: {
@@ -108,7 +111,7 @@ export default {
         //console.log(localStorage.getItem('token'))
 			axios.get('api/categoria?page=' + page)
 				.then(response => {
-
+          this.carga = 1;
           this.listado_categorias = response.data;
           console.log(this.listado_categorias);
 				});
