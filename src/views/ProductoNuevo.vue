@@ -220,6 +220,7 @@ export default {
 <style>
     .center label{
         font-weight: bold;
+        font-size: 11pt;
     }
     #form div input {
         text-align: center;

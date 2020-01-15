@@ -37,7 +37,7 @@
                 <input v-model="cliente.nombre" type="text" class="form-control" readonly />
               </div>
             </div>
-          <div class="col-6 row">
+          <!-- div class="col-6 row">
                 <div style="margin-left:40px;" class="col-3 custom-control custom-checkbox center">
                   <input
                     v-model="r_fecha"
@@ -57,7 +57,7 @@
             <div class="col-2">
                 <input v-model="hora" type="number" class="form-control" :disabled="r_fecha == 0" placeholder="00" />
             </div>
-          </div>
+          </div-->
 
           </div>
 
@@ -77,13 +77,13 @@
                 <p for="codigo">CODIGO</p>
               </div>
               <div class="col-3">
-                <input v-on:keyup.enter="obtenerProducto()" v-model="codigo" type="text" class="form-control" placeholder="Codigo" />
+                <input id="codigo" v-on:keyup="bla($event)" v-on:keyup.enter="obtenerProducto()" v-model="codigo" type="text" class="form-control" placeholder="Codigo" />
               </div>
               <div class="col-2 center">
                 <p for="codigo">CANTIDAD</p>
               </div>
               <div class="col-3">
-                <input v-model="cantidad" type="number" class="form-control" placeholder="Cantidad" />
+                <input id="cantidad" v-model="cantidad" v-on:keyup="bla2($event)" type="number" class="form-control" placeholder="Cantidad" />
               </div>
               <div class="col-2">
                 <button @click="obtenerProducto()" type="button" class="btn">AGREGAR</button>
@@ -351,6 +351,7 @@
 import axios from "axios";
 
 export default {
+
   data() {
     return {
       total: 0,
@@ -365,7 +366,9 @@ export default {
       r_fecha : '',
       fecha: '',
       //Modal
-      listado_productos : [],
+      listado_productos : [
+        {nombre:''}
+      ],
       filtro : '',
       filtro_n : '',
       paginate: ['cliente','producto'], 
@@ -374,6 +377,32 @@ export default {
     };
   },
   methods: {
+    bla(event){
+      if(event.key == '+'){
+        document.getElementById("cantidad").focus();
+        this.codigo = this.codigo.replace(/[+]/g, ''); 
+      this.cantidad = '';
+
+      }
+      //console.log(event.key)
+    },
+    bla2(event){
+      if(event.key == '1'||
+      event.key == '2'||
+      event.key == '3'||
+      event.key == '4'||
+      event.key == '5'||
+      event.key == '6'||
+      event.key == '7'||
+      event.key == '8'||
+      event.key == '9')
+      {
+        document.getElementById("codigo").focus();
+        //this.codigo = this.codigo.replace(/[+]/g, ''); 
+
+      }
+      //console.log(event.key)
+    },
     actualizar() {},
     establecerFecha(){
         console.log('pasa')
@@ -388,6 +417,8 @@ export default {
         this.fecha = y + "/" + m + "/" + d;
     },
     getResults() {
+          document.getElementById("codigo").focus();
+
       this.establecerFecha();
 			axios.get('api/producto')
 				.then(response => {
@@ -457,6 +488,8 @@ export default {
             this.limpiar();
             //this.limpiarRegistro();*/
             this.mensaje = "Venta REGISTRADA!!";
+            document.getElementById("codigo").focus();
+
           });
       }
     },
