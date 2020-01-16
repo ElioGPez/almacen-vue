@@ -20,13 +20,13 @@
               <div class="col-2">
                 <button
                   data-toggle="modal"
-                  data-target="#productos_modal"
+                  data-target="#clientes_modal"
                   type="button"
                   class="btn"
                 >BUSCAR</button>
               </div>
                 <div class="col-3">
-                <input type="number" class="form-control" readonly />
+                <input v-model="razon_social" type="text" class="form-control" readonly />
                 </div>
           </div>
           <div class="row">
@@ -190,7 +190,7 @@
                 <p>Nombre:</p>
               </div>
               <div class="col-4">
-                <input v-model="producto" type="text" class="form-control" placeholder />
+                <input v-model="filtro2" type="text" class="form-control" placeholder />
               </div>
             </div>
             <hr />
@@ -206,48 +206,25 @@
                       <thead>
                         <tr>
                           <th>Id</th>
-                          <th>Nombre</th>
-                          <th>Apellido</th>
+                          <th>Razon Social</th>
+                          <th>CUIT</th>
+                          <th>Email</th>
                           <th>Telefono</th>
-                          <th>DNI</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr v-for="item of productos.data" :key="item.id">
+                      <paginate name="proveedor" :list="filtroListadoP" :per="2" tag="tbody">
+                        <tr @click="seleccionarProveedor(item)" v-for="item in paginated('proveedor')" :key="item.id">
                           <td data-label="Votos">{{item.id}}</td>
-                          <td data-label="fecha">{{item.fecha}}</td>
-                          <td data-label="Producto">
-                            <span
-                              style="font-size: 15px;"
-                              v-if="item.estado == `pagada`"
-                              class="badge badge-success badge-pill"
-                            >{{item.estado}}</span>
-                            <span
-                              style="font-size: 15px;"
-                              v-if="item.estado == `impaga`"
-                              class="badge badge-danger badge-pill"
-                            >{{item.estado}}</span>
-                          </td>
-                          <td data-label="Producto">${{item.total}}</td>
-                          <td data-label="Producto">
-                            <a href>
-                              <router-link
-                                :to="{
-                            name : 'venta_detalle',
-                            params : {id : item.id}
-                          }"
-                              >
-                                <button class="btn btn-warning">
-                                  <i class="far fa-edit"></i>
-                                </button>
-                              </router-link>
-                            </a>
-                          </td>
+                          <td data-label="fecha">{{item.razon_social}}</td>
+                          <td data-label="fecha">{{item.cuit}}</td>
+                          <td data-label="Producto">{{item.email}}</td>
+                          <td data-label="fecha">{{item.telefono}}</td>
                         </tr>
-                      </tbody>
+                      </paginate>
                     </table>
                   </div>
                 </fieldset>
+                  <paginate-links for="proveedor" :classes="{'ul': 'pagination', 'li': 'page-item', 'a': 'page-link'}"></paginate-links>
                 <br />
               </div>
             </div>
@@ -379,18 +356,22 @@ export default {
       cantidad: '',
       costo : '',
       producto: "",
+      proveedor: "",
       productos: [],
       //Opcionales
       vencimiento : '',
       precio_venta : '',
       //Modal
       listado_productos : [],
+      listado_proveedores : [],
       filtro : '',
-      paginate: ['producto'], 
+      filtro2 : '',
+      paginate: ['producto','proveedor'], 
       mensaje: '',
       //Radios
       r_vencimiento : 0,
-      r_precio_venta : 0
+      r_precio_venta : 0,
+      razon_social : ''
     };
   },
   methods: {
@@ -403,8 +384,13 @@ export default {
     getResults() {
 			axios.get('api/producto')
 				.then(response => {
-          this.listado_productos = response.data;
+          this.listado_productos = response.data[0].productos;
           console.log(this.listado_productos);
+        });
+        axios.get('api/proveedor')
+				.then(response => {
+          this.listado_proveedores = response.data;
+          console.log(this.listado_proveedores);
 				});
     },
     seleccionarProducto(item){
@@ -413,6 +399,12 @@ export default {
       $('#productos_modal').modal('hide');
       this.codigo = item.codigo;
       this.nombre = item.nombre + ' - ' + item.descripcion; 
+    },
+    seleccionarProveedor(item){
+      console.log(item.nombre);
+      this.proveedor = item;
+      this.razon_social = item.razon_social;
+      $('#clientes_modal').modal('hide');
     },
     vencimientoActivo(event){
       if(this.r_vencimiento){
@@ -465,6 +457,7 @@ export default {
         var url = "api/compra";
         axios
           .post(url, {
+            proveedor : this.proveedor,
             linea_compra: this.linea_compra,
             total: this.total
           })
@@ -503,7 +496,26 @@ export default {
                 var nulos = [nulo];
                 return nulos;
               }
-      }
+      },
+        filtroListadoP(){
+            var cat = this.listado_proveedores.filter((item) => 
+            {
+              return item.razon_social.toLowerCase().match(this.filtro2.toLowerCase());
+            });
+            //console.log(cat.length);
+            if(cat.length != 0){
+              //console.log(cat);
+              return cat;
+            }
+            else{
+                //console.log('pasa');
+                var nulo = new Object();
+                nulo.id = 0;
+                nulo.nombre = "No hay elementos que coincidan";
+                var nulos = [nulo];
+                return nulos;
+              }
+      },
   },
 };
 </script>

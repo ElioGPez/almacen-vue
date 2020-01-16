@@ -204,6 +204,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "nav_mio",
   data() {
@@ -231,7 +233,24 @@ export default {
           this.$router.push('/login')
         })
       }
-  }
+  },
+  /*created: function () {
+        //Sirve para interceptar todos los mensajes de error, para impedir el acceso en caso de que no sea autorizado
+    axios.interceptors.response.use(undefined, function (err) {
+      console.log("Error: "+err);
+        //var sto = this.$store;
+              this.$store.dispatch('logout')
+      return new Promise(function (resolve, reject) {
+        if ((err.status === 401 && err.config && !err.config.__isRetryRequest)
+        ||err == 'Error: Request failed with status code 401'
+        ||err == 'Error: Request failed with status code 400') {
+          sto.dispatch('logout')
+
+        }
+        throw err;
+      });
+    });
+  } */
 };
 </script>
 
