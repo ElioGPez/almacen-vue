@@ -26,6 +26,7 @@
                      </div>
                  </div>
              </div>
+                     <div v-if="carga==0" class="loader" id="loader">Loading...</div>
          </div>
     </div>
 </template>
@@ -35,16 +36,18 @@ export default {
   data() {
     return {
       email : '',
-      password : ''
+      password : '',
+      carga : 1
     }
   },
     methods: {
       login: function () {
+        this.carga = 0
         let email = this.email
         let password = this.password
         this.$store.dispatch('login', { email, password })
         //Si la respuesta es exitosa, redirigimos a la ruta /
-       .then(() => this.$router.push('/'))
+       .then(() => {this.$router.push('/');this.carga = 1;})
        //Si la respuesta es erronea, mostramos por consola el error obtenido
        .catch(err => console.log(err))
       }
