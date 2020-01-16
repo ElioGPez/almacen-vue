@@ -457,9 +457,10 @@ export default {
         var url = "api/compra";
         axios
           .post(url, {
-            proveedor : this.proveedor,
+            proveedor_id : this.proveedor.id,
             linea_compra: this.linea_compra,
-            total: this.total
+            total: this.total,
+            empleado_id : JSON.parse(localStorage.getItem('usuario')).id
           })
           .then(response => {
             console.log(response.data);

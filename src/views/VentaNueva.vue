@@ -480,7 +480,7 @@ export default {
           .post(urlVenta, {
             cliente_id : this.cliente.id,
             linea_venta : this.linea_venta,
-            empleado_id : 1,
+            empleado_id : JSON.parse(localStorage.getItem('usuario')).id,
             total: this.total
           })
           .then(response => {
