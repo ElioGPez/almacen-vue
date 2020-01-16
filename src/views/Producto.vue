@@ -22,13 +22,16 @@
     <!-- TABLA -->
     <br>
     <div id="cardlist" class="card">
+
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
       <div  align="left">
         <router-link style="color:white;" to="/producto_nuevo">
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> PRODUCTO</button>
         </router-link>
       </div>
-      <form class="card-body">
-        <div class="form-group">
           <!-- Tabla -->
           <div class="form-group">
             <fieldset>
@@ -240,7 +243,9 @@ export default {
             categoria_id : '0',
             listado_categorias : [],
             categoria_id :'0',
-            producto : []
+            producto : [],
+            //
+            carga : 0
         }
     },
     methods: {
@@ -283,7 +288,7 @@ export default {
       
 				.then(response => {
           console.log(response.data[0].productos);
-
+          this.carga = 1
           this.listado_productos = response.data[0].productos;
           this.listado_categorias = response.data[0].categorias;
                     this.producto.push(response.data[0].productos[0]);

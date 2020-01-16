@@ -22,13 +22,15 @@
     <!-- TABLA -->
     <br>
     <div id="cardlist" class="card">
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
       <div  align="left">
         <router-link style="color:white;" to="/proveedor_nuevo">
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> PROVEEDOR</button>
         </router-link>
       </div>
-      <form class="card-body">
-        <div class="form-group">
           <!-- Tabla -->
           <div class="form-group">
             <fieldset>
@@ -112,7 +114,8 @@ export default {
         return {
             listado_proveedores:[],
             filtro : '',
-            paginate: ['proveedor']
+            paginate: ['proveedor'],
+            carga : 0
         }
     },
     methods: {
@@ -120,7 +123,7 @@ export default {
         //console.log(localStorage.getItem('token'))
 			axios.get('api/proveedor?page=' + page)
 				.then(response => {
-
+          this.carga = 1
           this.listado_proveedores = response.data;
           console.log(this.listado_proveedores);
 				});
