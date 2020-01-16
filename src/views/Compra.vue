@@ -84,7 +84,7 @@
                         name : 'compra_detalle',
                         params : {id : compra.id}
                       }">
-                      <button class="btn btn-warning">
+                      <button class="btn-icon btn btn-warning">
                         <i class="far fa-edit"></i>
                       </button>        
                       </router-link>

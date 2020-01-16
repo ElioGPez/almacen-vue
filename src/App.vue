@@ -77,6 +77,10 @@ export default {
   border: 1px solid red;
 }
 
+/* Para las tablas */
+.btn-icon {
+  font-size: 8pt;
+}
 /* Para la animacion de carga */
 .loader,
 .loader:before,

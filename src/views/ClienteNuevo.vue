@@ -27,7 +27,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr> 
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Apellido</label>
@@ -40,7 +40,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>DNI</label>
@@ -53,7 +53,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Telefono</label>
@@ -66,7 +66,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Email</label>
@@ -79,7 +79,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div-->
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Provincia</label>
@@ -95,7 +95,7 @@
                   <option v-for="item of listado_provincias" :key="item.id" :value="item.id">{{item.nombre}}</option>
                 </select>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Localidad</label>
@@ -110,7 +110,7 @@
                   <option v-for="item of listado_localidades" :key="item.id" :value="item.id">{{item.nombre}}</option>
                 </select>
               </div>
-          </div><hr>
+          </div>
           <div class="center row">
               <div class="col-2">
                 <label for>Domicilio</label>

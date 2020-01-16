@@ -57,17 +57,18 @@
     <!-- TABLA -->
     <br />
     <div id="cardlist" class="card">
-      <div align="left">
+
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+        
+        <div v-else class="form-group">
+                <div align="left">
         <router-link style="color:white;" to="/venta_nueva">
           <button style="margin:3px;" class="btn btn-info">
             <i class="fas fa-plus-circle"></i> VENTA
           </button>
         </router-link>
       </div>
-      <form class="card-body">
-        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
-
-        <div v-else class="form-group">
           <!-- Tabla -->
           <div class="form-group">
             <fieldset>
@@ -97,7 +98,7 @@
                             params : {id : item.id}
                           }"
                           >
-                            <button @click.prevent="detalle(item)" class="btn btn-warning">
+                            <button @click.prevent="detalle(item)" class="btn-icon btn btn-warning">
                               <i class="fas fa-info-circle"></i>
                             </button>
                           </router-link>
@@ -353,11 +354,12 @@ export default {
 table thead {
   background-color: #3a0041;
   color: rgb(245, 250, 255);
-  font-size: 13pt;
+  font-size: 12pt;
 }
+
 .table td {
   text-align: center;
   font-weight: bold;
-  font-size: 13pt;
+  font-size: 12pt;
 }
 </style>

@@ -79,7 +79,7 @@
                             data-toggle="modal"
                             ata-target="#modal_pendiente"
                               @click.prevent="editar(item)"
-                             class="btn btn-warning">
+                             class="btn-icon btn btn-warning">
                               <i class="far fa-edit"></i>
                             </button>        
                           <!--/router-link-->
