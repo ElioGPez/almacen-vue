@@ -333,7 +333,7 @@
         </button>
       </div>
       <div class="modal-body">
-        {{mensaje}}
+        <h3>{{mensaje}}</h3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">ACEPTAR</button>
@@ -449,6 +449,10 @@ export default {
         );
         console.log(item.producto);
         //Agregar mensaje de codigo incorrecto
+        if(item.stock <= 0){
+          this.mensaje = "El producto seleccionado no tiene stock disponible!!";
+          $('#mensajeModal').modal('show');
+        }else
         if(item != null){
           this.producto = item;
           this.agregarLineaDeVenta();

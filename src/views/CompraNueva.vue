@@ -48,7 +48,7 @@
                 <p>CODIGO</p>
             </div>
             <div class="col-2">
-                <input v-on:keyup.enter="buscarProducto()" v-model="codigo" type="number" class="form-control"/>
+                <input id="codigo" v-on:keyup.enter="buscarProducto()" v-model="codigo" type="number" class="form-control"/>
             </div>
           </div>
           <hr>
@@ -63,7 +63,7 @@
                 <p>CANTIDAD</p>
             </div>
             <div class="col-4">
-                <input v-model="cantidad" type="number" class="form-control"  />
+                <input v-on:keyup.enter="agregarProducto()" v-model="cantidad" type="number" class="form-control"  />
             </div>
           </div>
           <div class="row">
@@ -382,6 +382,7 @@ export default {
       }
     },    
     getResults() {
+        document.getElementById("codigo").focus();
 			axios.get('api/producto')
 				.then(response => {
           this.listado_productos = response.data[0].productos;
@@ -466,6 +467,7 @@ export default {
             console.log(response.data);
             this.limpiarRegistro();
             this.mensaje = "Compra REGISTRADA!!";
+        document.getElementById("codigo").focus();
 
           });
       }        
@@ -474,6 +476,9 @@ export default {
        this.linea_compra = [];
        this.total = 0;
        this.producto = '';
+       this.proveedor = '';
+       this.razon_social = '';
+       this.nombre = ''
      },
   },mounted() {
     		this.getResults();
