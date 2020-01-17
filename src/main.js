@@ -16,7 +16,7 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+Axios.defaults.baseURL = 'http://almacen.com/';
 Axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
 
 Axios.interceptors.response.use(undefined, function (err) {
