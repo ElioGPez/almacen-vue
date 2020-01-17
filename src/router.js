@@ -42,77 +42,122 @@ let router = new Router({
     {
       path: '/venta',
       name: 'venta',
-      component: Venta
+      component: Venta,
+     /* meta: { 
+        requiresAuth: true
+      }*/
     },
     {
       path: '/compra',
       name: 'compra',
-      component: Compra
+      component: Compra,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/cliente',
       name: 'cliente',
-      component: Cliente
+      component: Cliente,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/cliente_nuevo',
       name: 'cliente_nuevo',
-      component: ClienteNuevo
+      component: ClienteNuevo,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/categoria',
       name: 'categoria',
-      component: Categoria
+      component: Categoria,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/categoria_nueva',
       name: 'categoria_nueva',
-      component: CategoriaNueva
+      component: CategoriaNueva,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/producto',
       name: 'producto',
-      component: Producto
+      component: Producto,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/proveedor',
       name: 'proveedor',
-      component: Proveedor
+      component: Proveedor,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/proveedor_nuevo',
       name: 'proveedor_nuevo',
-      component: ProveedorNuevo
+      component: ProveedorNuevo,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/producto_nuevo',
       name: 'producto_nuevo',
-      component: ProductoNuevo
+      component: ProductoNuevo,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
     path: '/compra_nueva',
     name: 'compra_nueva',
-    component: CompraNueva
+    component: CompraNueva,
+    meta: { 
+      requiresAuth: true
+    }
     },
     {
       path: '/venta_nueva',
       name: 'venta_nueva',
-      component: VentaNueva
+      component: VentaNueva,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/informe',
       name: 'informe',
-      component: Informe
+      component: Informe,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path : '/cuenta/:id',
       name : 'cuenta',
-      component: Cuenta
+      component: Cuenta,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path : '/estadisticas',
       name : 'estadisticas',
-      component: Estadistica
+      component: Estadistica,
+      meta: { 
+        requiresAuth: true
+      }
     },
     {
       path: '/about',

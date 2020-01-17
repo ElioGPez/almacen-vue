@@ -106,6 +106,8 @@ export default new Vuex.Store({
         localStorage.removeItem('token')
         localStorage.removeItem('usuario')
         delete axios.defaults.headers.common['Authorization']
+        this.$router.push('/login')
+
         resolve()
       })
     }

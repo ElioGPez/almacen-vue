@@ -22,6 +22,10 @@
     <!-- TABLA -->
     <br>
     <div id="cardlist" class="card">
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
       <div  align="left">
         <router-link style="color:white;" to="/proveedor_nuevo">
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> PROVEEDOR</button>
@@ -73,7 +77,7 @@
                             name : 'venta',
                             params : {id : cat.id}
                           }">
-                            <button class="btn btn-warning">
+                            <button class="btn-icon btn btn-warning">
                               <i class="far fa-edit"></i>
                             </button>        
                           </router-link>
@@ -123,7 +127,7 @@ export default {
         //console.log(localStorage.getItem('token'))
 			axios.get('api/proveedor?page=' + page)
 				.then(response => {
-        this.carga = 1;
+          this.carga = 1
           this.listado_proveedores = response.data;
           console.log(this.listado_proveedores);
 				});

@@ -22,6 +22,11 @@
     <!-- TABLA -->
     <br>
     <div id="cardlist" class="card">
+
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
       <div  align="left">
         <router-link style="color:white;" to="/categoria_nueva">
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> CATEGORIA</button>

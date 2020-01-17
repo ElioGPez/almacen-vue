@@ -22,6 +22,11 @@
     <!-- TABLA -->
     <br>
     <div id="cardlist" class="card">
+
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
       <div  align="left">
         <router-link style="color:white;" to="/cliente_nuevo">
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> CLIENTE</button>
@@ -73,7 +78,7 @@
                         name : 'cuenta',
                         params : {id : cat.id}
                       }">
-                      <button class="btn btn-warning">
+                      <button class="btn-icon btn btn-warning">
                         <i class="far fa-user"></i>
                       </button>        
                       </router-link>
@@ -83,7 +88,7 @@
                         name : 'cliente_modificar',
                         params : {id : cat.id}
                       }">
-                      <button class="btn btn-warning">
+                      <button class="btn-icon btn btn-warning">
                         <i class="far fa-edit"></i>
                       </button>        
                       </router-link>
@@ -91,7 +96,7 @@
                         <a href>
                           <button @click.prevent="eliminarModal(cat.id,index);"
                           data-toggle="modal" data-target="#exampleModal" 
-                           class="btn btn-danger">
+                           class="btn-icon btn btn-danger">
                             <i class="fas fa-trash-alt"></i>
                           </button>
                         </a>

@@ -14,11 +14,9 @@ import VuePaginate from 'vue-paginate'
 Vue.use(VuePaginate)
 import VueGoogleCharts from 'vue-google-charts'
 Vue.use(VueGoogleCharts)
-import axios from "axios";
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
-axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
 import Navar from "@/components/Navar.vue";
 import ApexCharts from 'apexcharts'
+import store from './store'
 
 
 export default {
@@ -29,22 +27,14 @@ export default {
   components: {
     Navar
   }, 
+  created: function () {
 
+  },
     
     methods: {
 
     },
-      created: function () {
-        //Sirve para interceptar todos los mensajes de error, para impedir el acceso en caso de que no sea autorizado
-    axios.interceptors.response.use(undefined, function (err) {
-      return new Promise(function (resolve, reject) {
-        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-          this.$store.dispatch(logout)
-        }
-        throw err;
-      });
-    });
-  } 
+
 }
 </script>
 <style>
@@ -78,6 +68,10 @@ export default {
   border: 1px solid red;
 }
 
+/* Para las tablas */
+.btn-icon {
+  font-size: 8pt;
+}
 /* Para la animacion de carga */
 .loader,
 .loader:before,

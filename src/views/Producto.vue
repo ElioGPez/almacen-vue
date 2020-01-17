@@ -22,6 +22,11 @@
     <!-- TABLA -->
     <br>
     <div id="cardlist" class="card">
+
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
       <div  align="left">
         <router-link style="color:white;" to="/producto_nuevo">
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> PRODUCTO</button>
@@ -81,7 +86,7 @@
                             data-toggle="modal"
                             ata-target="#modal_pendiente"
                               @click.prevent="editar(item)"
-                             class="btn btn-warning">
+                             class="btn-icon btn btn-warning">
                               <i class="far fa-edit"></i>
                             </button>        
                           <!--/router-link-->
@@ -243,7 +248,7 @@ export default {
             listado_categorias : [],
             categoria_id :'0',
             producto : [],
-
+            //
             carga : 0
         }
     },

@@ -50,13 +50,16 @@
     <!-- TABLA -->
     <br>
     <div id="cardlist" class="card">
+
+      <form class="card-body">
+        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
+
+        <div v-else class="form-group">
       <div  align="left">
         <router-link style="color:white;" to="/compra_nueva">
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> COMPRA</button>
         </router-link>
       </div>
-      <form class="card-body">
-        <div class="form-group">
           <!-- Tabla -->
           <div class="form-group">
             <fieldset>
@@ -84,7 +87,7 @@
                         name : 'compra_detalle',
                         params : {id : compra.id}
                       }">
-                      <button class="btn btn-warning">
+                      <button class="btn-icon btn btn-warning">
                         <i class="far fa-edit"></i>
                       </button>        
                       </router-link>
@@ -119,14 +122,15 @@ export default {
             listado_compras:[],
             paginate: ['compra'],
             fecha_desde : '',
-            fecha_hasta : ''
+            fecha_hasta : '',
+            carga : 0
         }
     },
     methods: {
       getResults() {
 			  axios.get('api/compra')
 				.then(response => {
-
+          this.carga = 1
           this.listado_compras = response.data;
           console.log(this.listado_compras);
 				});

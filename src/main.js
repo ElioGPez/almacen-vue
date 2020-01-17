@@ -16,6 +16,22 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
+Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+Axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
+
+Axios.interceptors.response.use(undefined, function (err) {
+  return new Promise(function (resolve, reject) {
+    console.log(err);
+    if ((err.status === 401 && err.config && !err.config.__isRetryRequest)
+    ||err == 'Error: Request failed with status code 400'
+      ||err == 'Error: Request failed with status code 401') {
+      console.log('pasa')
+      store.dispatch('logout')
+    }
+    throw err;
+  });
+});
+
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token')
 if (token) {
