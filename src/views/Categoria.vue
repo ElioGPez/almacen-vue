@@ -32,10 +32,6 @@
           <button style="margin:3px;" class="btn btn-info"><i class="fas fa-plus-circle"></i> CATEGORIA</button>
         </router-link>
       </div>
-      <form class="card-body">
-        <div v-if="carga==0" class="loader" id="loader">Loading...</div>
-
-        <div v-else class="form-group">
           <!-- Tabla -->
           <div class="form-group">
             <fieldset>
