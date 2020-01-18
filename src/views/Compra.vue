@@ -76,7 +76,7 @@
                       <th>Acciones</th>
                     </tr> 
                   </thead>
-                  <paginate name="compra" :list="listado_compras" :per="4" tag="tbody">
+                  <paginate name="compra" :list="listado_compras" :per="8" tag="tbody">
                     <tr v-for="compra in paginated('compra')" :key="compra.id">
                       <td data-label="Votos">{{compra.id}}</td>
                       <td data-label="imagen">{{compra.fecha}}</td>
@@ -97,6 +97,13 @@
                   </paginate>
                 </table>
               </div>
+          <div>
+            <hr />
+            <h5 align="right">
+              TOTAL
+              <b style="color:green;">${{total}}</b>
+            </h5>
+          </div>
             </fieldset>
             <br>
 
@@ -123,7 +130,8 @@ export default {
             paginate: ['compra'],
             fecha_desde : '',
             fecha_hasta : '',
-            carga : 0
+            carga : 0,
+            total:0
         }
     },
     methods: {
@@ -133,6 +141,13 @@ export default {
           this.carga = 1
           this.listado_compras = response.data;
           console.log(this.listado_compras);
+
+        var aux = 0;
+        this.listado_compras.forEach(function(valor, indice, array) {
+          aux += valor.monto;
+        });
+        this.total = aux;
+
 				});
         },
     },

@@ -85,7 +85,7 @@
                       <th>Acciones</th>
                     </tr>
                   </thead>
-                  <paginate name="venta" :list="listado_ventas" :per="4" tag="tbody">
+                  <paginate name="venta" :list="listado_ventas" :per="8" tag="tbody">
                     <tr v-for="item in paginated('venta')" :key="item.id">
                       <td data-label="Votos">{{item.id}}</td>
                       <td data-label="fecha">{{item.created_at}}</td>
@@ -108,6 +108,13 @@
                   </paginate>
                 </table>
               </div>
+          <div>
+            <hr />
+            <h5 align="right">
+              TOTAL
+              <b style="color:green;">${{total}}</b>
+            </h5>
+          </div>
             </fieldset>
             <br />
           </div>
@@ -216,7 +223,8 @@ export default {
       id_venta: '',
       lineas: [{ id: "0", producto: { nombre: "" } }],
       mensaje : '',
-      carga:0
+      carga:0,
+      total:0,
     };
   },
   methods: {
@@ -225,6 +233,13 @@ export default {
         this.listado_ventas = response.data;
         this.listado_ventas_aux = this.listado_ventas;
         this.carga = 1;
+
+        var aux = 0;
+        this.listado_ventas.forEach(function(valor, indice, array) {
+          aux += valor.monto;
+        });
+        this.total = aux;
+
         console.log(this.listado_ventas);
       });
     },

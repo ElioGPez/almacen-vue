@@ -159,8 +159,6 @@
                 type="button"
                 class="btn btn-lg btn-block"
                 @click="registrarCompra()"
-                data-toggle="modal"
-                data-target="#mensajeModal"
               >
                 <b>REGISTRAR</b>
               </button>
@@ -329,7 +327,7 @@
         </button>
       </div>
       <div class="modal-body">
-        {{mensaje}}
+        <h3>{{mensaje}}</h3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">ACEPTAR</button>
@@ -464,6 +462,7 @@ export default {
             empleado_id : JSON.parse(localStorage.getItem('usuario')).id
           })
           .then(response => {
+          $('#mensajeModal').modal('show');
             console.log(response.data);
             this.limpiarRegistro();
             this.mensaje = "Compra REGISTRADA!!";

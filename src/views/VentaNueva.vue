@@ -147,8 +147,6 @@
                 type="button"
                 class="btn btn-lg btn-block"
                 @click="registrarVenta()"
-                data-toggle="modal"
-                data-target="#mensajeModal"
               >
                 <b>REGISTRAR</b>
               </button>
@@ -451,6 +449,7 @@ export default {
         //Agregar mensaje de codigo incorrecto
         if(item.stock <= 0){
           this.mensaje = "El producto seleccionado no tiene stock disponible!!";
+          this.codigo = '';
           $('#mensajeModal').modal('show');
         }else
         if(item != null){
@@ -488,6 +487,7 @@ export default {
             total: this.total
           })
           .then(response => {
+            $('#mensajeModal').modal('show');
             console.log(response.data);
             this.limpiar();
             //this.limpiarRegistro();*/
