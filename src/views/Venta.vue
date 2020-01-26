@@ -19,10 +19,12 @@
           >
             <option selected value="0">FILTRAR...</option>
             <option value="1">Ventas de Hoy</option>
+
             <option value="2">Entre Fechas</option>
             <option value="3">Todas las ventas</option>
           </select>
         </div>
+
         <div class="col-4 row">
           <div class="col-6 center">
             <p class="text-right">
@@ -50,6 +52,21 @@
             align="right"
             class="btn btn-primary"
           >FILTRAR</button>
+        </div>
+      </div><hr>
+      <div class="row">
+        <div style="margin-left:5px;" class="col-2 row">
+          <select
+            id="inputState"
+            class="form-control"
+            v-model="filtroT"
+            @change="filtroTurno($event)"
+          >
+            <option selected value="0">Especificar turno...</option>
+            <option value="1">Dia</option>
+            <option value="2">Manana</option>
+            <option value="3">Tarde</option>
+          </select>
         </div>
       </div>
     </div>
@@ -92,16 +109,10 @@
                       <td data-label="Producto">${{item.monto}}</td>
                       <td data-label="Producto">
                         <a href>
-                          <router-link
-                            :to="{
-                            name : 'venta_detalle',
-                            params : {id : item.id}
-                          }"
-                          >
+
                             <button @click.prevent="detalle(item)" class="btn-icon btn btn-warning">
                               <i class="fas fa-info-circle"></i>
                             </button>
-                          </router-link>
                         </a>
                       </td>
                     </tr>
@@ -214,8 +225,10 @@ export default {
   data() {
     return {
       filtro: 0,
+      filtroT: 0,
       listado_ventas: [],
       listado_ventas_aux: [],
+      listado_ventas_aux2: [],
       paginate: ["venta", "linea_venta"],
       fecha_desde: "",
       fecha_hasta: "",
@@ -228,17 +241,23 @@ export default {
     };
   },
   methods: {
-    getResults() {
-      axios.get("api/venta").then(response => {
-        this.listado_ventas = response.data;
-        this.listado_ventas_aux = this.listado_ventas;
-        this.carga = 1;
-
+    actualizarTotal(){
         var aux = 0;
         this.listado_ventas.forEach(function(valor, indice, array) {
           aux += valor.monto;
         });
+        this.listado_ventas.reverse();
         this.total = aux;
+    },
+    getResults() {
+      axios.get("api/venta").then(response => {
+        this.listado_ventas = response.data;
+        this.listado_ventas_aux = this.listado_ventas;
+        this.listado_ventas_aux2 = this.listado_ventas;
+        this.carga = 1;
+
+        this.actualizarTotal();
+      
 
         console.log(this.listado_ventas);
       });
@@ -290,6 +309,9 @@ export default {
         });
             if(listadoResultante.length != 0){
               this.listado_ventas = listadoResultante;
+        //Para ser usado en el proximo filtro
+        this.listado_ventas_aux2 = listadoResultante;
+              this.actualizarTotal();
             }
             else{
                 var nulo = new Object();
@@ -301,6 +323,7 @@ export default {
 
     },
     filtroAplicado(event) {
+      this.filtroT = 0;
       if (event.target.value == "1") {
         this.listado_ventas = this.listado_ventas_aux;
         
@@ -331,6 +354,10 @@ export default {
         //console.log(listadoResultante);
             if(listadoResultante.length != 0){
               this.listado_ventas = listadoResultante;
+        //Para ser usado en el proximo filtro
+        this.listado_ventas_aux2 = listadoResultante;
+              console.log('pasa por aqui');
+              this.actualizarTotal();
             }
             else{
                 var nulo = new Object();
@@ -342,8 +369,70 @@ export default {
         //this.listado_ventas = listadoResultante;
       } else if (event.target.value == "3") {
         this.listado_ventas = this.listado_ventas_aux;
+        //Para ser usado en el proximo filtro
+        this.listado_ventas_aux2 = this.listado_ventas_aux;
+        this.actualizarTotal();
       }
-    }
+    },
+    filtroTurno(event) {
+
+        this.listado_ventas = this.listado_ventas_aux2;
+
+        if (event.target.value == "1") {
+            this.listado_ventas = this.listado_ventas_aux2;
+        }else
+        if (event.target.value == "2") {
+
+        var listadoResultante = [];
+        this.listado_ventas.forEach(function(valor, indice, array) {
+          
+          var date = new Date(valor.created_at);
+          if (
+            date.getHours() > 6 &&
+            date.getHours() < 18
+          ) {
+            listadoResultante.push(valor);
+          }
+        });
+        //console.log(listadoResultante);
+            if(listadoResultante.length != 0){
+              this.listado_ventas = listadoResultante;
+              this.actualizarTotal();
+            }
+            else{
+                var nulo = new Object();
+                nulo.id = '';
+                nulo.created_at = "No se encontraron ventas";
+                var nulos = [nulo];
+                this.listado_ventas = nulos;
+              }
+      } else if (event.target.value == "3") {
+
+        var listadoResultante = [];
+        this.listado_ventas.forEach(function(valor, indice, array) {
+          
+          var date = new Date(valor.created_at);
+          if (
+            date.getHours() > 18 &&
+            date.getHours() < 23
+          ) {
+            listadoResultante.push(valor);
+          }
+        });
+        //console.log(listadoResultante);
+            if(listadoResultante.length != 0){
+              this.listado_ventas = listadoResultante;
+              this.actualizarTotal();
+            }
+            else{
+                var nulo = new Object();
+                nulo.id = '';
+                nulo.created_at = "No se encontraron ventas";
+                var nulos = [nulo];
+                this.listado_ventas = nulos;
+              }
+      }
+    }      
   },
   mounted() {
     this.getResults();

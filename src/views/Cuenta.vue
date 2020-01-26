@@ -46,7 +46,7 @@
               <div class="col-10">
                 <label style="color:green;" for>${{cliente.saldo}}</label>
               </div>
-          </div><hr>
+          </div>
         </div>
 
         <div class="subtitulo"><h4>Nuevo Pago</h4></div>
@@ -73,7 +73,7 @@
                     <strong>Cuidado!</strong> Este campo es requerido
                 </div>
               </div>
-          </div><hr>
+          </div>
 
     <div >
 

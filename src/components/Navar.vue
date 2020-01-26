@@ -2,7 +2,9 @@
   <div>
     <nav id="sidebar2" class="navbar navbar-expand-sm navbar-light">
       <!-- Logo -->
-      <h3 style="color:white;">ALMACEN</h3>
+      <router-link  to="/">
+        <h3 style="color:white;">ALMACEN</h3>
+      </router-link>
       <button
         :class="[navbar]"
         type="button"

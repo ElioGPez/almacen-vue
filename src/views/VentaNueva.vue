@@ -401,7 +401,12 @@ export default {
       }
       //console.log(event.key)
     },
-    actualizar() {},
+    actualizar() {
+      this.total = 0;
+      for (var item of this.linea_venta) {
+        this.total += item.subtotal;
+      }
+    },
     establecerFecha(){
         console.log('pasa')
         var n = new Date();
@@ -521,7 +526,7 @@ export default {
       filtroListado(){
             var cat = this.listado_productos.filter((item) => 
             {
-              return item.nombre.toLowerCase().match(this.filtro.toLowerCase());
+              return item.nombre.toLowerCase().match(this.filtro.toLowerCase()) || item.codigo.toLowerCase().match(this.filtro.toLowerCase());
             });
             //console.log(cat.length);
             if(cat.length != 0){

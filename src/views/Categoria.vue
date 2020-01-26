@@ -10,7 +10,7 @@
     <div class="card">
       <div class="row">
             <div class="center col-2">
-                <p>Buscar</p>
+                <p><i class="fas fa-search"></i> Buscar</p>
             </div>
             <div class="col-4">
                 <input v-model="filtro" type="text" class="form-control" />

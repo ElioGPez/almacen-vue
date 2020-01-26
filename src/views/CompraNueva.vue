@@ -57,7 +57,7 @@
                 <p>COSTO</p>
             </div>
             <div class="col-4">
-                <input v-model="costo" type="number" class="form-control" />
+                <input id="costo" v-model="costo" type="number" class="form-control" />
             </div>
             <div class="center col-1.5">
                 <p>CANTIDAD</p>
@@ -398,6 +398,7 @@ export default {
       $('#productos_modal').modal('hide');
       this.codigo = item.codigo;
       this.nombre = item.nombre + ' - ' + item.descripcion; 
+      document.getElementById("costo").focus();
     },
     seleccionarProveedor(item){
       console.log(item.nombre);
@@ -449,7 +450,6 @@ export default {
         );
         this.seleccionarProducto(item);
         console.log(item);
-
      },
      registrarCompra(){
       if (this.linea_compra.length != 0) {

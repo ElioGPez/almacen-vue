@@ -9,14 +9,35 @@
     <br>
     <div class="card">
       <div class="row">
-            <div class="center col-2">
-                <p>Buscar</p>
+        <div class="row col-6">
+            <div class="center col-4">
+                <p><i class="fas fa-search"></i> Buscar</p>
             </div>
-            <div class="col-4">
+            <div class="col-8">
                 <input id="producto" v-model="filtro" type="text" class="form-control" />
             </div>
         
+        </div>
+        <div class="row col-6">
+            <div class="center col-4">
+                <p><i class="fas fa-sort-amount-up"></i> Filtros</p>
+            </div>
+        <div style="margin-left:5px;" class="col-8 row">
+          <select
+            id="inputState"
+            class="form-control"
+            v-model="filtro2"
+            @change="filtros($event)"
+          >
+            <option selected value="0">Nombre (A-Z)</option>
+            <option value="1">Nombre (Z-A)</option>
+            <option value="2">Stock (Mayor-Menor)</option>
+            <option value="3">Stock (Menor-Mayor)</option>
+          </select>
+        </div>
+        </div>  
       </div>
+
     </div>
 
     <!-- TABLA -->
@@ -92,6 +113,13 @@
                   </paginate>
                 </table>
               </div>
+          <div>
+            <hr />
+            <h5 align="right">
+              TOTAL
+              <b style="color:green;">${{total}}</b>
+            </h5>
+          </div>
             </fieldset>
             <br>
 
@@ -232,7 +260,7 @@ export default {
             listado_categorias:[],
             filtro : '',
         paginate: ['producto'],
-        
+            total : 0,
             nombre : '',
             descripcion : '',
             categoria : '',
@@ -245,7 +273,8 @@ export default {
             categoria_id :'0',
             producto : [],
             //
-            carga : 0
+            carga : 0,
+            filtro2 : '0'
         }
     },
     methods: {
@@ -267,6 +296,51 @@ export default {
 
         });
       },
+    filtros(event) {
+
+
+        if (event.target.value == "0") {
+            this.listado_productos.sort(function (a, b) {
+            if(a.nombre<b.nombre){
+              return -1;
+            }else
+            if(a.nombre>b.nombre){
+              return 1;
+            }
+            return 0
+          })        
+        }else
+        if (event.target.value == "1") {
+            this.listado_productos.sort(function (a, b) {
+            if(a.nombre>b.nombre){
+              return -1;
+            }else
+            if(a.nombre<b.nombre){
+              return 1;
+            }
+            return 0
+          })
+
+        }else
+        if (event.target.value == "2") {
+            this.listado_productos.sort(function (a, b) {
+            return (a.stock-b.stock)
+          })
+        }else
+        if (event.target.value == "3") {
+            this.listado_productos.sort(function (a, b) {
+            return (b.stock-a.stock)
+          })
+        }
+    }  ,
+      actualizarTotal(){
+        var aux = 0;
+        this.listado_productos.forEach(function(valor, indice, array) {
+          aux += (valor.precio_venta*valor.stock);
+        });
+        //this.listado_ventas.reverse();
+        this.total = aux;
+      },
       editar(item){
         console.log('Editar activado ');
         $("#modal_pendiente").modal("show");
@@ -287,12 +361,25 @@ export default {
       axios.get('api/producto')
       
 				.then(response => {
-          console.log(response.data[0].productos);
+          //console.log(response.data[0].productos);
           this.carga = 1;
           this.listado_productos = response.data[0].productos;
           this.listado_categorias = response.data[0].categorias;
-                    this.producto.push(response.data[0].productos[0]);
+          this.producto.push(response.data[0].productos[0]);
           this.producto.push(this.listado_categorias);
+          //Ordenar alfabeticamente de A - Z
+
+            this.listado_productos.sort(function (a, b) {
+            if(a.nombre<b.nombre){
+              return -1;
+            }else
+            if(a.nombre>b.nombre){
+              return 1;
+            }
+            return 0
+          })
+
+          this.actualizarTotal();
 				});
         },
         busqueda(){
